@@ -1,5 +1,5 @@
 // URL del backend
-const backendUrl = 'http://localhost:3000';
+const backendUrl = 'https://webapp-telegram-backend.onrender.com';
 
 // Obtener el parámetro 'id' de la URL
 const urlParams = new URLSearchParams(window.location.search);
