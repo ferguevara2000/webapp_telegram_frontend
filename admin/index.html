@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="style.css">
+    <!-- <link rel="stylesheet" href="user_form.css"> -->
+    <title>Admin Panel</title>
+</head>
+
+<body>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <a href="#" class="logo">
+            <i class='bx bx-bot'></i>
+            <div class="logo-name"><span>Bot</span>Panel</div>
+        </a>
+        <ul class="side-menu">
+            <li><a href="#"><i class='bx bxs-dashboard'></i>Dashboard</a></li>
+        </ul>
+        <!-- <ul class="side-menu">
+            <li>
+                <a href="#" class="logout">
+                    <i class='bx bx-log-out-circle'></i>
+                    Logout
+                </a>
+            </li>
+        </ul> -->
+    </div>
+    <!-- End of Sidebar -->
+
+    <!-- Main Content -->
+    <div class="content">
+        <!-- Navbar -->
+        <nav>
+            <i class='bx bx-menu'></i>
+            <form action="#">
+                <div class="form-input">
+                    <!-- <input type="search" placeholder="Search..."> -->
+                    <!-- <button class="search-btn" type="submit"><i class='bx bx-search'></i></button> -->
+                    <button></button>
+                </div>
+            </form>
+            <input type="checkbox" id="theme-toggle" hidden>
+            <label for="theme-toggle" class="theme-toggle"></label>
+        </nav>
+
+        <!-- End of Navbar -->
+
+        <main>
+            <div class="header">
+                <div class="left">
+                    <h1>Dashboard</h1>
+                </div>
+            </div>
+
+            <!-- Insights -->
+            <ul class="insights">
+                <li>
+                    <i class='bx bx-user'></i>
+                    <span class="info">
+                        <h3 id="totalUsuarios">
+                            
+                        </h3>
+                        <p>Total de Usuarios</p>
+                    </span>
+                </li>
+                <li>
+
+                </li>
+                <li>
+                    
+                </li>
+                <li>
+                    
+                </li>
+            </ul>
+            <button type="button" class="button" id="openFormButton">
+                <span class="button__text">Añadir Usuarios</span>
+                <span class="button__icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" viewBox="0 0 24 24" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" stroke="currentColor" height="24" fill="none" class="svg">
+                    <line y2="19" y1="5" x2="12" x1="12"></line>
+                    <line y2="12" y1="12" x2="19" x1="5"></line>
+                  </svg>
+                </span>
+              </button>
+              
+              <!-- Modal -->
+              <!-- Modal -->
+<div id="myModal" class="modal">
+    <!-- Contenido del modal -->
+    <div class="modal-content">
+      <span class="close"></span>
+      <!-- Formulario dentro del modal -->
+      <form id="userForm" class="form">
+          <p class="title">Añadir un Usuario </p>
+          
+            <label>
+              <input class="user_id input" type="text" placeholder="" required="">
+              <span>User ID</span>
+            </label>
+    
+            <label>
+              <input class="username input" type="text" placeholder="" required="">
+              <span>Nombre</span>
+            </label>
+          
+            <label>
+                <input class="expires_at input" type="date" placeholder="" required="">
+                <span>Fecha de pago</span>
+            </label>
+
+            <label>
+                <input class="image_id input" type="number" placeholder="" required="">
+                <span>Id Webapp</span>
+            </label>
+                  
+          <label>
+              <input class="default_image_url input" type="url" placeholder="" required="">
+              <span>URL Imagen</span>
+          </label> 
+              
+          
+          <label>
+              <input class="default_message input" type="text" placeholder="" required="">
+              <span>Mensaje</span>
+          </label>
+          <button class="submit">Submit</button>
+      </form>
+    </div>
+  </div>
+            <!-- End of Insights -->
+
+            <div class="bottom-data">
+                <div class="orders">
+                    <div class="header">
+                        <i class='bx bx-user-pin'></i>
+                        <h3>Registro de Usuarios</h3>
+                        <i class='bx bx-filter'></i>
+                        <i class='bx bx-search'></i>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Id Usuario</th>
+                                <th>Nombre</th>
+                                <th>Fecha de pago</th>
+                                <th>Imagen predeterminada</th>
+                                <th>Id Webapp</th>
+                                <th class="col-mensaje">Mensaje predeterminado</th>
+                                <th>Acciones</th> 
+                            </tr>
+                        </thead>
+                        <tbody id="tabla-datos">
+                            <tr>
+                                <td class="user-id">1310280807</td>
+                                <td>Fernando</td>
+                                <td>14-08-2023</td>
+                                <td><img src="images/profile-1.jpg"></td>
+                                <td>1</td>
+                                <td>🔒 Haz clic en el botón de abajo para desbloquear el contenido</td>
+                                <td>
+                                    <i class='bx bx-edit btn-editar'></i>
+                                    
+                                    <i class='bx bx-trash btn-eliminar'></i>
+                                    
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </main>
+
+    </div>
+
+    <script src="index.js"></script>
+</body>
+
+</html>
