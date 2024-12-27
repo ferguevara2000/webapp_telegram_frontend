@@ -239,18 +239,8 @@ body{
 }
 
 .content nav form .form-input button{
-    width: 80px;
-    height: 100%;
+    visibility: hidden;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    background: var(--primary);
-    color: var(--light);
-    font-size: 18px;
-    border: none;
-    outline: none;
-    border-radius: 0 36px 36px 0;
-    cursor: pointer;
 }
 
 .content nav .notif{
@@ -864,7 +854,7 @@ table .col-mensaje {
   }
 
   /* Estilo para el icono de cierre (X) */
-.close {
+.close_modal {
     position: absolute;
     top: 10px;
     right: 10px;
@@ -882,18 +872,18 @@ table .col-mensaje {
   }
   
   /* Cambio de color de fondo al pasar el ratón */
-  .close:hover {
+  .close_modal:hover {
     background-color: #ff4d4d; /* Rojo brillante */
     transform: scale(1.1); /* Efecto de agrandado */
   }
   
   /* Cambio de color del texto al pasar el ratón */
-  .close:hover {
+  .close_modal:hover {
     color: #fff; /* Mantener el color blanco en el hover */
   }
   
   /* Asegúrate de que la X esté centrada correctamente */
-  .close:before {
+  .close_modal:before {
     content: "";
     font-family: Arial, sans-serif;
     font-weight: bold;

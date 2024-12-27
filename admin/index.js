@@ -113,7 +113,7 @@ async function cargarDatos() {
 
 // Obtener elementos del modal y formulario
 const modal = document.getElementById("myModal");
-const closeModal = document.querySelector(".close");
+const closeModal = document.querySelector(".close_modal");
 const form = document.getElementById("userForm");
 
 window.addEventListener('DOMContentLoaded', () => {
@@ -148,33 +148,60 @@ form.addEventListener("submit", function (event) {
   const formData = {
     user_id: +document.querySelector(".user_id").value,
     username: document.querySelector(".username").value,
-    expires_at: document.querySelector(".expires_at").value,
+    expires_at: document.querySelector(".expires_at").value + "T00:00:00", // Aseguramos que la fecha sea de las 0 horas
     image_id: document.querySelector(".image_id").value,
     default_image_url: document.querySelector(".default_image_url").value,
     default_message: document.querySelector(".default_message").value,
   };
 
-  // Enviar datos a la API
-  fetch("https://webapp-telegram-backend.onrender.com/users", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(formData), // Convertir el objeto a JSON
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      console.log("Éxito:", data);
-      alert("Usuario añadido con éxito!");
-      cargarDatos();
-      actualizarTotalUsuarios();
-      closeModalFunction(); // Cerrar el modal después de guardar
+  const action = form.dataset.action;
+  const userId = form.dataset.userId;
+
+  if (action === "edit") {
+    // Editar un usuario existente
+    fetch(`https://webapp-telegram-backend.onrender.com/users/${userId}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData), // Convertir el objeto a JSON
     })
-    .catch((error) => {
-      console.error("Error:", error);
-      alert("Hubo un error al guardar los datos.");
-    });
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Usuario editado con éxito:", data);
+        alert("Usuario editado con éxito!");
+        cargarDatos(); // Recargar los datos
+        actualizarTotalUsuarios(); // Actualizar el total de usuarios
+        closeModalFunction(); // Cerrar el modal
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        alert("Hubo un error al editar los datos.");
+      });
+  } else {
+    // Crear un nuevo usuario
+    fetch("https://webapp-telegram-backend.onrender.com/users", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData), // Convertir el objeto a JSON
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Usuario añadido con éxito:", data);
+        alert("Usuario añadido con éxito!");
+        cargarDatos(); // Recargar los datos
+        actualizarTotalUsuarios(); // Actualizar el total de usuarios
+        closeModalFunction(); // Cerrar el modal
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        alert("Hubo un error al guardar los datos.");
+      });
+  }
 });
+
 
 // Función para abrir el modal cuando sea necesario
 // (Puedes usar esto cuando des clic en un botón, por ejemplo)
@@ -237,6 +264,43 @@ function actualizarTotalUsuarios() {
 
 // Llamar a la función para actualizar el total al cargar la página
 window.addEventListener('DOMContentLoaded', actualizarTotalUsuarios);
+
+tablaDatos.addEventListener('click', function(event) {
+  if (event.target.classList.contains('btn-editar')) {
+    const userId = event.target.getAttribute('data-id');
+    openModal(); // Abrir el modal
+    cargarDatosUsuario(userId); // Cargar los datos del usuario en el formulario
+  }
+});
+
+async function cargarDatosUsuario(userId) {
+  try {
+    const response = await fetch(`https://webapp-telegram-backend.onrender.com/users/${userId}`);
+    if (!response.ok) throw new Error("Error al obtener los datos del usuario");
+    const usuario = await response.json();
+
+    //Convertir fecha a formato adecuado
+    const expiresAt = new Date(usuario.expires_at);
+    expiresAt.setHours(0, 0, 0, 0); // Establecer la hora a las 00:00:00
+
+    // Asignar los datos al formulario del modal
+    document.querySelector(".user_id").value = usuario.user_id;
+    document.querySelector(".username").value = usuario.username;
+    document.querySelector(".expires_at").value = expiresAt.toISOString().split('T')[0]; // Formato YYYY-MM-DD
+    document.querySelector(".image_id").value = usuario.image_id;
+    document.querySelector(".default_image_url").value = usuario.default_image_url;
+    document.querySelector(".default_message").value = usuario.default_message;
+    
+    // Cambiar el título del modal a "Editar Usuario" (opcional)
+    document.getElementById("myModalTitle").textContent = "Editar Usuario";
+    // Puedes agregar una clase de "editar" o "nuevo" para diferenciar entre crear y editar si lo necesitas.
+    form.dataset.action = "edit"; // Usamos data-action para diferenciar entre crear y editar
+    form.dataset.userId = userId; // Guardar el ID del usuario en el formulario
+  } catch (error) {
+    console.error("Error al cargar los datos del usuario:", error);
+    alert("Hubo un error al cargar los datos del usuario.");
+  }
+}
 
 
 // Llamar a la función para cargar los datos al cargar la página
