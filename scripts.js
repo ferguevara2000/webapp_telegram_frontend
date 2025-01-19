@@ -34,7 +34,10 @@ async function fetchImageById(id) {
     const imageData = await response.text();
 
     // Crear una URL de objeto a partir de los datos base64
-    const imageUrl = `data:image/jpeg;base64,${imageData}`;
+    // Eliminar comillas dobles o simples al principio y al final del string
+    const cleanImageData = imageData.replace(/^['"]|['"]$/g, '');
+    const imageUrl = `data:image/jpeg;base64,${cleanImageData}`;
+    console.log(imageData)
 
     // Actualizar la imagen y mensaje
     imageElement.src = imageUrl;
