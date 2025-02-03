@@ -2,62 +2,69 @@
 const supabaseUrl = 'https://fwujoibaczwmddsyaiur.supabase.co/rest/v1/rpc/get_image_by_id';
 const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ3dWpvaWJhY3p3bWRkc3lhaXVyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzcwODA3MjYsImV4cCI6MjA1MjY1NjcyNn0.2sl8tcb7YKLEWgrAo4B5JpvfkvhH5YqpodrcoOy_m4Y'; // Reemplaza con tu clave de Supabase
 
-// Obtener el parámetro 'id' de la URL
+// Obtener el parámetro 'user_id' de la URL
 const urlParams = new URLSearchParams(window.location.search);
-const imageId = urlParams.get('id');
+const userId = urlParams.get('user_id');
 
-// Elementos del DOM
-const imageElement = document.getElementById('image');
-const messageElement = document.getElementById('message');
+// Elemento del DOM para la galería
+const gallery = document.querySelector('.gallery');
 
 // Intervalo de actualización (en milisegundos)
 const updateInterval = 10000; // 10 segundos
 
-// Función para obtener la imagen desde Supabase
-async function fetchImageById(id) {
+// Función para obtener las imágenes desde Supabase
+async function fetchImagesByUserId(userId) {
   try {
     const response = await fetch(supabaseUrl, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         apikey: supabaseKey,
-        Authorization: `Bearer ${supabaseKey}`
+        Authorization: `Bearer ${supabaseKey}`,
       },
-      body: JSON.stringify({ image_id: id })
+      body: JSON.stringify({ p_user_id: userId }), // Enviar el user_id como parámetro
     });
 
     if (!response.ok) {
-      throw new Error('Imagen no encontrada');
+      throw new Error('Error al obtener las imágenes');
     }
 
-    // La respuesta contiene los datos de la imagen en base64
-    const imageData = await response.text();
+    // La respuesta es un array de imágenes
+    const images = await response.json();
 
-    // Crear una URL de objeto a partir de los datos base64
-    // Eliminar comillas dobles o simples al principio y al final del string
-    const cleanImageData = imageData.replace(/^['"]|['"]$/g, '');
-    const imageUrl = `data:image/jpeg;base64,${cleanImageData}`;
-    console.log(imageData)
+    // Limpiar la galería antes de agregar nuevas imágenes
+    gallery.innerHTML = '';
 
-    // Actualizar la imagen y mensaje
-    imageElement.src = imageUrl;
-    imageElement.alt = `Imagen ID: ${id}`;
-    messageElement.textContent = ''; // Limpia cualquier mensaje de error
+    // Crear tarjetas para cada imagen
+    images.forEach((image) => {
+      const card = document.createElement('div');
+      card.className = 'card';
+
+      const imgElement = document.createElement('img');
+      imgElement.src = `data:image/jpeg;base64,${image.image_data}`; // Convertir base64 a URL
+      imgElement.alt = `Imagen ID: ${image.id}`;
+
+      const timestampElement = document.createElement('p');
+      timestampElement.className = 'timestamp';
+      timestampElement.textContent = new Date(image.created_at).toLocaleString(); // Formatear fecha
+
+      card.appendChild(imgElement);
+      card.appendChild(timestampElement);
+      gallery.appendChild(card);
+    });
   } catch (error) {
-    // Mostrar error en el mensaje
-    imageElement.src = ''; // Limpia la imagen si hay un error
-    imageElement.alt = 'Error al cargar la imagen';
-    messageElement.textContent = error.message;
+    console.error('Error:', error.message);
+    gallery.innerHTML = `<p class="error">${error.message}</p>`; // Mostrar error en la galería
   }
 }
 
-// Verificar si se proporcionó un ID y configurar el intervalo de actualización
-if (imageId) {
+// Verificar si se proporcionó un user_id y configurar el intervalo de actualización
+if (userId) {
   // Llamar la función inmediatamente
-  fetchImageById(imageId);
+  fetchImagesByUserId(userId);
 
-  // Configurar un intervalo para actualizar la imagen automáticamente
-  setInterval(() => fetchImageById(imageId), updateInterval);
+  // Configurar un intervalo para actualizar las imágenes automáticamente
+  setInterval(() => fetchImagesByUserId(userId), updateInterval);
 } else {
-  messageElement.textContent = 'No se proporcionó un ID en la URL.';
+  gallery.innerHTML = '<p class="error">No se proporcionó un user_id en la URL.</p>';
 }

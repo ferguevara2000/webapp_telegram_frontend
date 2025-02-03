@@ -1,39 +1,54 @@
-/* General body styling */
+/* Estilos generales */
 body {
-    background-color: #000000;
-    font-family: Arial, sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    margin: 0;
-  }
-  
-  /* Card container styling */
-  .card {
-    background-color: #181818;
-    border-radius: 10px;
-    padding: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    width: 80%; /* 80% of the screen width */
-    max-width: 500px; /* Increase max width for larger screens */
-    height: auto; /* Adjust height dynamically */
-  }
-  
-  /* Image inside the card */
-  .card img {
-    width: 100%;
-    max-width: 300px; /* Increase maximum size of the image */
-    height: auto;
-    border-radius: 10px;
-  }
-  
-  /* Paragraph text inside the card */
-  .card p {
-    color: #ffffff;
-    font-size: 18px; /* Slightly larger text */
-    margin-top: 10px;
-    word-wrap: break-word; /* Handle long texts gracefully */
-  }
-  
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f9;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+/* Contenedor de la galería */
+.gallery {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  padding: 20px;
+}
+
+/* Tarjeta para cada imagen */
+.card {
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  text-align: center;
+  max-width: 400px;
+  width: 100%;
+}
+
+/* Estilo de la imagen */
+.card img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Estilo del texto de fecha y hora */
+.timestamp {
+  font-size: 14px;
+  color: #666;
+  padding: 10px;
+  margin: 0;
+  background-color: #f9f9f9;
+  border-top: 1px solid #eee;
+}
+
+/* Estilo para mensajes de error */
+.error {
+  color: red;
+  text-align: center;
+}
