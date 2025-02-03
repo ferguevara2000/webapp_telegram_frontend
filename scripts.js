@@ -1,5 +1,5 @@
 // URL de Supabase y API Key
-const supabaseUrl = 'https://fwujoibaczwmddsyaiur.supabase.co/rest/v1/rpc/get_image_by_id';
+const supabaseUrl = 'https://fwujoibaczwmddsyaiur.supabase.co/rest/v1/rpc/get_all_images';
 const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ3dWpvaWJhY3p3bWRkc3lhaXVyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzcwODA3MjYsImV4cCI6MjA1MjY1NjcyNn0.2sl8tcb7YKLEWgrAo4B5JpvfkvhH5YqpodrcoOy_m4Y'; // Reemplaza con tu clave de Supabase
 
 // Obtener el parámetro 'user_id' de la URL
