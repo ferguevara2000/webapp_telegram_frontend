@@ -3,7 +3,8 @@ body {
   margin: 0;
   padding: 0;
   font-family: Arial, sans-serif;
-  background-color: #f4f4f9;
+  background-color: #1a1a1a; /* Fondo oscuro */
+  color: #ffffff; /* Texto blanco */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -21,13 +22,19 @@ body {
 
 /* Tarjeta para cada imagen */
 .card {
-  background-color: #ffffff;
+  background-color: #2d2d2d; /* Fondo oscuro para las tarjetas */
   border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Sombra más oscura */
   overflow: hidden;
   text-align: center;
   max-width: 400px;
   width: 100%;
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Efecto hover */
+}
+
+.card:hover {
+  transform: translateY(-5px); /* Efecto de elevación al pasar el mouse */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5); /* Sombra más pronunciada */
 }
 
 /* Estilo de la imagen */
@@ -35,20 +42,23 @@ body {
   width: 100%;
   height: auto;
   display: block;
+  border-bottom: 1px solid #444; /* Borde inferior para separar la imagen del texto */
 }
 
 /* Estilo del texto de fecha y hora */
 .timestamp {
   font-size: 14px;
-  color: #666;
+  font-weight: 600; /* Texto más grueso */
+  color: #b3b3b3; /* Color gris claro */
   padding: 10px;
   margin: 0;
-  background-color: #f9f9f9;
-  border-top: 1px solid #eee;
+  background-color: #333; /* Fondo ligeramente más claro que la tarjeta */
+  border-top: 1px solid #444; /* Borde superior para separar el texto */
 }
 
 /* Estilo para mensajes de error */
 .error {
-  color: red;
+  color: #ff4d4d; /* Rojo más vibrante */
   text-align: center;
+  font-weight: 600; /* Texto más grueso */
 }

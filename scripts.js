@@ -46,7 +46,7 @@ async function fetchImagesByUserId(userId) {
 
       const timestampElement = document.createElement('p');
       timestampElement.className = 'timestamp';
-      timestampElement.textContent = new Date(image.created_at).toLocaleString(); // Formatear fecha
+      timestampElement.textContent = `Message sent at: ${new Date(image.created_at).toLocaleString()}`; // Agregar texto antes de la fecha
 
       card.appendChild(imgElement);
       card.appendChild(timestampElement);
