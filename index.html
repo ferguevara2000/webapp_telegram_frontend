@@ -9,15 +9,14 @@
 
     <script>
       window.addEventListener("DOMContentLoaded", () => {
-        const title = document.getElementById("titulo");
+        const tg = window.Telegram.WebApp;
 
-        if (window.Telegram && Telegram.WebApp && Telegram.WebApp.initDataUnsafe) {
-          const parametro = Telegram.WebApp.initDataUnsafe.start_param;
-          title.textContent = parametro 
-            ? `Parámetro recibido: ${parametro}`
-            : "No se recibió parámetro";
+        if (tg) {
+          tg.ready();
+          const param = tg.initDataUnsafe?.start_param;
+          document.getElementById('titulo').textContent = param || "Sin parámetro";
         } else {
-          title.textContent = "❌ No se detectó entorno Telegram WebApp";
+          document.getElementById('titulo').textContent = "❌ No se detectó entorno Telegram WebApp";
         }
       });
     </script>
