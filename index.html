@@ -2,23 +2,22 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Telegram WebApp Param</title>
+  <title>WebApp Telegram</title>
 </head>
 <body>
-  <h1 id="paramDisplay">Cargando...</h1>
+  <h1 id="titulo">Cargando parámetro...</h1>
 
   <script>
-    // Esperamos que Telegram WebApp esté disponible
-    if (window.Telegram && window.Telegram.WebApp) {
-      // Obtenemos el parámetro start_param
-      const param = window.Telegram.WebApp.initDataUnsafe?.start_param || "No hay parámetro";
-
-      // Mostramos el parámetro en el h1
-      document.getElementById("paramDisplay").textContent = param;
-    } else {
-      document.getElementById("paramDisplay").textContent = "No se detectó entorno Telegram WebApp";
-    }
+    window.addEventListener("DOMContentLoaded", () => {
+      if (window.Telegram && Telegram.WebApp && Telegram.WebApp.initDataUnsafe) {
+        const parametro = Telegram.WebApp.initDataUnsafe.start_param;
+        document.getElementById("titulo").textContent = parametro 
+          ? `Parámetro recibido: ${parametro}` 
+          : "No se recibió parámetro";
+      } else {
+        document.getElementById("titulo").textContent = "❌ No se detectó entorno Telegram WebApp";
+      }
+    });
   </script>
 </body>
 </html>
