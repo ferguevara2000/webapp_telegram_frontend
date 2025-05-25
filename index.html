@@ -1,15 +1,24 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="styles.css" />
-    <title>WebApp</title>
-  </head>
-  <body>
-    <div class="gallery">
-      <!-- Las imágenes se agregarán aquí dinámicamente -->
-    </div>
-    <script src="scripts.js"></script>
-  </body>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Telegram WebApp Param</title>
+</head>
+<body>
+  <h1 id="paramDisplay">Cargando...</h1>
+
+  <script>
+    // Esperamos que Telegram WebApp esté disponible
+    if (window.Telegram && window.Telegram.WebApp) {
+      // Obtenemos el parámetro start_param
+      const param = window.Telegram.WebApp.initDataUnsafe?.start_param || "No hay parámetro";
+
+      // Mostramos el parámetro en el h1
+      document.getElementById("paramDisplay").textContent = param;
+    } else {
+      document.getElementById("paramDisplay").textContent = "No se detectó entorno Telegram WebApp";
+    }
+  </script>
+</body>
 </html>
