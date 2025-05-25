@@ -1,23 +1,25 @@
 <!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8" />
-  <title>WebApp Telegram</title>
-</head>
-<body>
-  <h1 id="titulo">Cargando parámetro...</h1>
+<html>
+  <head>
+    <title>WebApp Telegram</title>
+    <meta charset="UTF-8">
+  </head>
+  <body>
+    <h1 id="titulo">Cargando...</h1>
 
-  <script>
-    window.addEventListener("DOMContentLoaded", () => {
-      if (window.Telegram && Telegram.WebApp && Telegram.WebApp.initDataUnsafe) {
-        const parametro = Telegram.WebApp.initDataUnsafe.start_param;
-        document.getElementById("titulo").textContent = parametro 
-          ? `Parámetro recibido: ${parametro}` 
-          : "No se recibió parámetro";
-      } else {
-        document.getElementById("titulo").textContent = "❌ No se detectó entorno Telegram WebApp";
-      }
-    });
-  </script>
-</body>
+    <script>
+      window.addEventListener("DOMContentLoaded", () => {
+        const title = document.getElementById("titulo");
+
+        if (window.Telegram && Telegram.WebApp && Telegram.WebApp.initDataUnsafe) {
+          const parametro = Telegram.WebApp.initDataUnsafe.start_param;
+          title.textContent = parametro 
+            ? `Parámetro recibido: ${parametro}`
+            : "No se recibió parámetro";
+        } else {
+          title.textContent = "❌ No se detectó entorno Telegram WebApp";
+        }
+      });
+    </script>
+  </body>
 </html>
