@@ -8,17 +8,21 @@
     <h1 id="titulo">Cargando...</h1>
 
     <script>
-      window.addEventListener("DOMContentLoaded", () => {
-        const tg = window.Telegram.WebApp;
+  window.addEventListener("DOMContentLoaded", () => {
+    // Intenta obtener el parámetro desde Telegram WebApp
+    const tg = window.Telegram?.WebApp;
+    let param = tg?.initDataUnsafe?.start_param;
 
-        if (tg) {
-          tg.ready();
-          const param = tg.initDataUnsafe?.start_param;
-          document.getElementById('titulo').textContent = param || "Sin parámetro";
-        } else {
-          document.getElementById('titulo').textContent = "❌ No se detectó entorno Telegram WebApp";
-        }
-      });
-    </script>
+    // Si no existe, lo intentamos desde la URL
+    if (!param) {
+      const urlParams = new URLSearchParams(window.location.search);
+      param = urlParams.get("tgWebAppStartParam");
+    }
+
+    // Mostrar el valor
+    document.getElementById("titulo").textContent = param || "Sin parámetro recibido";
+  });
+</script>
+
   </body>
 </html>
